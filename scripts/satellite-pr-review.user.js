@@ -3,7 +3,7 @@
 // @namespace   SatelliteQE
 // @description Helps PR review process in SatelliteQE projects
 // @match       https://github.com/SatelliteQE/*
-// @version     0.1
+// @version     1.0
 // @run-at      document-end
 // ==/UserScript==
 
@@ -252,7 +252,7 @@ const main = function() {
     addProcessStateEvaluation();
 };
 
-const handleUrlChange = function() {
+const checkIfRunRequired = function() {
     if (isPageLoading() && customElementsPresent()) {
         return;
     }
@@ -260,6 +260,6 @@ const handleUrlChange = function() {
     main();
 };
 
-setInterval(handleUrlChange, 1000);
+setInterval(checkIfRunRequired, 1000);
 
 main();
