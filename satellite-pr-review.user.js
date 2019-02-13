@@ -34,7 +34,7 @@ const reviewers = {
     }
 }
 
-let url;
+let elementIds = [];
 
 const getProjectFromURL = function() {
     let path = window.location.pathname
@@ -44,6 +44,25 @@ const getProjectFromURL = function() {
 const isPRCommentsPage = function() {
     let currentUrl = window.location.href;
     return currentUrl.includes('pull') && /\d$/.test(currentUrl);
+}
+
+const isNewPRPage = function() {
+    let currentUrl = window.location.href;
+    return currentUrl.includes('compare/');
+}
+
+const isPageLoading = function() {
+    let isLoaderWorking = document.querySelector('#js-pjax-loader-bar.is-loading') !== null;
+    let isProgressBarFull = document.querySelector('#js-pjax-loader-bar .progress').style.width === '100%';
+
+    return ! isLoaderWorking && isProgressBarFull;
+};
+
+const customElementsPresent = function() {
+    if (elementIds.length === 0) {
+        return false;
+    }
+    return elementIds.every(id => document.getElementById(id) !== null);
 }
 
 const removeIfExists = function(elem) {
@@ -105,31 +124,35 @@ const getReviewState = function() {
 };
 
 const addCustomStyles = function() {
-    const styleId = 'SatelliteQE-PR-review';
-    if (document.getElementById(styleId) !== null) {
+    const elementId = 'satelliteqe-stylesheet';
+    elementIds.push(elementId);
+    if (document.getElementById(elementId) !== null) {
         return;
     }
 
     const styleRules = [
-        '#reviewers {position: absolute; right: -150px;}',
-        '#reviewers h4 {margin-top: 1em;}',
-        '#satelliteqe-review li {margin-left: 1.2em;}'
+        '#satelliteqe-reviewers {position: absolute; right: -150px;}',
+        '#satelliteqe-reviewers h4 {margin-top: 1em;}',
+        '#satelliteqe-process-checks li {margin-left: 1.2em;}'
     ];
 
     let style = document.createElement('style');
-    style.setAttribute('id', styleId);
+    style.setAttribute('id', elementId);
     document.head.appendChild(style);
     styleRules.forEach(rule => style.sheet.insertRule(rule));
 }
 
 const addReviewersList = function(project) {
-    let reviewersBlock = document.getElementById('reviewers');
+    const elementId = 'satelliteqe-reviewers';
+    elementIds.push(elementId);
+
+    let reviewersBlock = document.getElementById(elementId);
     removeIfExists(reviewersBlock);
 
-    reviewersList = reviewers[project];
+    let reviewersList = reviewers[project];
 
     reviewersBlock = document.createElement('div');
-    reviewersBlock.setAttribute('id', 'reviewers');
+    reviewersBlock.setAttribute('id', elementId);
 
     Object.keys(reviewersList).forEach(tier => {
         let header = document.createElement('h4');
@@ -145,18 +168,28 @@ const addReviewersList = function(project) {
         reviewersBlock.appendChild(list);
     });
 
-    document.getElementById('partial-discussion-sidebar').prepend(reviewersBlock);
+    let sidebar = document.getElementById('partial-discussion-sidebar') ||
+        document.querySelector('.discussion-sidebar');
+
+    sidebar.prepend(reviewersBlock);
 };
 
 const addProcessStateEvaluation = function() {
+    if (isNewPRPage()) {
+        return;
+    }
+
     const checks = [minimumNumberOfReviewers, tier2ReviewerACK];
     const reviewState = getReviewState();
 
-    let resultsBlock = document.getElementById('satelliteqe-review');
+    const elementId = 'satelliteqe-process-checks';
+    elementIds.push(elementId);
+
+    let resultsBlock = document.getElementById(elementId);
     removeIfExists(resultsBlock);
 
     resultsBlock = document.createElement('div');
-    resultsBlock.setAttribute('id', 'satelliteqe-review');
+    resultsBlock.setAttribute('id', elementId);
     resultsBlock.setAttribute('class', 'branch-action-item js-details-container Details');
 
     const resultsIconBlock = document.createElement('div');
@@ -206,7 +239,11 @@ const addProcessStateEvaluation = function() {
 const main = function() {
     let project = getProjectFromURL();
 
-    if (! (project in reviewers && isPRCommentsPage())) {
+    if (! (project in reviewers)){
+        return;
+    }
+
+    if (! (isPRCommentsPage() || isNewPRPage())) {
         return;
     }
 
@@ -215,26 +252,11 @@ const main = function() {
     addProcessStateEvaluation();
 };
 
-let observer = new MutationObserver((changesList, caller) => {
-    main();
-});
-
 const handleUrlChange = function() {
-    let currentUrl = window.location.href;
-
-    if (url === currentUrl) {
+    if (isPageLoading() && customElementsPresent()) {
         return;
     }
 
-    let pjaxLoader = document.getElementById('js-pjax-loader-bar');
-    if (pjaxLoader !== null) {
-        observer.observe(pjaxLoader,
-            {'attributes': true, 'childList': true, 'subtree': true});
-    } else {
-        observer.disconnect();
-    }
-
-    url = currentUrl;
     main();
 };
 
