@@ -1,0 +1,19 @@
+{
+	"extends": [
+		"eslint:recommended"
+	],
+	"env": {
+		"browser": true,
+		"greasemonkey": true,
+		"es6": true
+	},
+	"rules": {
+		"indent": ["error", 4],
+		"max-len": ["error", {
+			"code": 100,
+			"ignoreUrls": true,
+			"ignoreTemplateLiterals": true,
+			"ignoreStrings": true
+		}]
+	}
+}
