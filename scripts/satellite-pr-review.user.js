@@ -3,7 +3,7 @@
 // @namespace   SatelliteQE
 // @description Helps PR review process in SatelliteQE projects
 // @match       https://github.com/SatelliteQE/*
-// @version     1.0
+// @version     1.1
 // @run-at      document-end
 // ==/UserScript==
 
@@ -71,6 +71,12 @@ const removeIfExists = function(elem) {
     }
 }
 
+const getLabels = function() {
+    let labelNodes = document.querySelectorAll('#partial-discussion-sidebar .labels a');
+    return Array.from(labelNodes)
+        .map(node => node.getAttribute('data-name'));
+};
+
 const minimumNumberOfReviewers = function(reviewState) {
     let checkResult = {'passed': undefined, 'message': undefined};
     const reviewNumberThreshold = 2;
@@ -98,6 +104,21 @@ const tier2ReviewerACK = function(reviewState) {
     } else {
         checkResult.passed = false;
         checkResult.message = 'No ACK from Tier2 reviewer';
+    }
+
+    return checkResult;
+};
+
+// eslint-disable-next-line no-unused-vars
+const noDoNotMergeLabel = function(reviewState) {
+    let checkResult = {'passed': undefined, 'message': undefined};
+
+    const labels = getLabels();
+
+    checkResult.passed = ! labels.includes('DO NOT MERGE');
+
+    if (! checkResult.passed) {
+        checkResult.message = 'DO NOT MERGE label is present';
     }
 
     return checkResult;
@@ -179,7 +200,7 @@ const addProcessStateEvaluation = function() {
         return;
     }
 
-    const checks = [minimumNumberOfReviewers, tier2ReviewerACK];
+    const checks = [minimumNumberOfReviewers, tier2ReviewerACK, noDoNotMergeLabel];
     const reviewState = getReviewState();
 
     const elementId = 'satelliteqe-process-checks';
