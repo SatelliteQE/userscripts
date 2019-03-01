@@ -3,7 +3,7 @@
 // @namespace   SatelliteQE
 // @description Helps PR review process in SatelliteQE projects
 // @match       https://github.com/SatelliteQE/*
-// @version     1.1
+// @version     1.2
 // @run-at      document-end
 // ==/UserScript==
 
@@ -55,7 +55,7 @@ const isPageLoading = function() {
     let isLoaderWorking = document.querySelector('#js-pjax-loader-bar.is-loading') !== null;
     let isProgressBarFull = document.querySelector('#js-pjax-loader-bar .progress').style.width === '100%';
 
-    return ! isLoaderWorking && isProgressBarFull;
+    return isLoaderWorking || ( ! isProgressBarFull );
 };
 
 const customElementsPresent = function() {
@@ -131,6 +131,7 @@ const getReviewState = function() {
 
     const selector = '#partial-pull-merging .branch-action-item:first-of-type .merge-status-list > .merge-status-item';
     return Array.from(document.querySelectorAll(selector))
+        .filter(reviewElem => reviewElem.querySelector('a[data-hovercard-type="user"]') !== null)
         .map(reviewElem => {
             let user = reviewElem.querySelector('a[data-hovercard-type="user"]')
                 .getAttribute('href')
@@ -274,7 +275,7 @@ const main = function() {
 };
 
 const checkIfRunRequired = function() {
-    if (isPageLoading() && customElementsPresent()) {
+    if (isPageLoading() || customElementsPresent()) {
         return;
     }
 
