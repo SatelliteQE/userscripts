@@ -3,7 +3,7 @@
 // @namespace   SatelliteQE
 // @description Adds links to Bugzilla search queries with your components
 // @match       https://mojo.redhat.com/docs/DOC-1191673
-// @version     1.1
+// @version     1.2
 // @run-at      document-end
 // ==/UserScript==
 
@@ -95,6 +95,7 @@ const main = function() {
             a.appendChild(document.createTextNode(level));
             a.style.marginLeft = '0.5em';
             a.setAttribute('href', href);
+            a.setAttribute('target', '_blank');
 
             row.appendChild(a);
         });
