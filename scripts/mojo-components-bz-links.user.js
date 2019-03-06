@@ -3,7 +3,7 @@
 // @namespace   SatelliteQE
 // @description Adds links to Bugzilla search queries with your components
 // @match       https://mojo.redhat.com/docs/DOC-1191673
-// @version     1.0
+// @version     1.1
 // @run-at      document-end
 // ==/UserScript==
 
@@ -11,6 +11,11 @@ const categories = [
     {
         'label': 'ON_QA',
         'status': 'ON_QA',
+    },
+    {
+        'label': 'need info from me',
+        'status': '__open__',
+        'urlpart': '&f1=requestees.login_name&o1=substring&v1=EMAIL_ADDR'
     },
     {
         'label': 'open',
