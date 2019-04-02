@@ -3,13 +3,13 @@
 // @namespace   SatelliteQE
 // @description Helps PR review process in SatelliteQE projects
 // @match       https://github.com/SatelliteQE/*
-// @version     1.2
+// @version     1.3
 // @run-at      document-end
 // ==/UserScript==
 
 const reviewers = {
     'airgun': {
-        'tier1': ['mirzal'],
+        'tier1': ['lvrtelov', 'lpramuk', 'latran', 'mirzal'],
         'tier2': ['abalakh', 'ldjebran', 'oshtaier']
     },
     'nailgun': {
