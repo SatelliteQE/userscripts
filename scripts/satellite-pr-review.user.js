@@ -3,7 +3,7 @@
 // @namespace   SatelliteQE
 // @description Helps PR review process in SatelliteQE projects
 // @match       https://github.com/SatelliteQE/*
-// @version     1.4
+// @version     1.5
 // @run-at      document-end
 // ==/UserScript==
 
@@ -153,7 +153,7 @@ const addCustomStyles = function() {
     }
 
     const styleRules = [
-        '#satelliteqe-reviewers {position: absolute; right: -150px;}',
+        '#satelliteqe-reviewers {position: absolute; right: 300px;}',
         '#satelliteqe-reviewers h4 {margin-top: 1em;}',
         '#satelliteqe-process-checks li {margin-left: 1.2em;}'
     ];
