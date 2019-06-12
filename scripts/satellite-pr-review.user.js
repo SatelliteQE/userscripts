@@ -3,7 +3,7 @@
 // @namespace   SatelliteQE
 // @description Helps PR review process in SatelliteQE projects
 // @match       https://github.com/SatelliteQE/*
-// @version     1.6
+// @version     1.7
 // @run-at      document-end
 // ==/UserScript==
 
@@ -129,14 +129,14 @@ const getReviewState = function() {
         return [];
     }
 
-    const selector = '#partial-pull-merging .branch-action-item:first-of-type .merge-status-list > .merge-status-item';
+    const selector = '#partial-pull-merging .branch-action-item:first-of-type .merge-status-list div.merge-status-item';
     return Array.from(document.querySelectorAll(selector))
         .filter(reviewElem => reviewElem.querySelector('a[data-hovercard-type="user"]') !== null)
         .map(reviewElem => {
             let user = reviewElem.querySelector('a[data-hovercard-type="user"]')
                 .getAttribute('href')
                 .slice(1);
-            let rawStatus = reviewElem.querySelector('svg.octicon')
+            let rawStatus = reviewElem.parentNode.querySelector('summary svg.octicon')
                 .classList;
 
             let accepted = rawStatus.contains('text-green') ? true : false;
