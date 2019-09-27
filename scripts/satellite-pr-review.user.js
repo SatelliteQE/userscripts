@@ -3,7 +3,7 @@
 // @namespace   SatelliteQE
 // @description Helps PR review process in SatelliteQE projects
 // @match       https://github.com/SatelliteQE/*
-// @version     1.11
+// @version     1.12
 // @run-at      document-end
 // ==/UserScript==
 
@@ -196,7 +196,7 @@ const addReviewersList = function(project) {
     });
 
     let sidebar = document.getElementById('partial-discussion-sidebar') ||
-        document.querySelector('.discussion-sidebar');
+        document.querySelector('form [data-project-hovercards-enabled]');
 
     sidebar.prepend(reviewersBlock);
 };
