@@ -157,8 +157,7 @@ const addCustomStyles = function() {
     }
 
     const styleRules = [
-        '#satelliteqe-reviewers {position: absolute; right: 200px;}',
-        '.discussion-sidebar > #satelliteqe-reviewers {position: absolute; right: -200px;}',
+        '#satelliteqe-reviewers {position: relative; float: right; left: 120px;}',
         '#satelliteqe-reviewers h4 {margin-top: 1em;}',
         '#satelliteqe-process-checks li {margin-left: 1.2em;}'
     ];
