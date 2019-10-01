@@ -3,7 +3,7 @@
 // @namespace   SatelliteQE
 // @description Helps PR review process in SatelliteQE projects
 // @match       https://github.com/SatelliteQE/*
-// @version     1.13
+// @version     1.14
 // @run-at      document-end
 // ==/UserScript==
 
@@ -157,7 +157,7 @@ const addCustomStyles = function() {
     }
 
     const styleRules = [
-        '#satelliteqe-reviewers {position: relative; float: right; left: 120px;}',
+        '#satelliteqe-reviewers {position: absolute; top: 300px;}',
         '#satelliteqe-reviewers h4 {margin-top: 1em;}',
         '#satelliteqe-process-checks li {margin-left: 1.2em;}'
     ];
@@ -194,10 +194,11 @@ const addReviewersList = function(project) {
         reviewersBlock.appendChild(list);
     });
 
-    let sidebar = document.getElementById('partial-discussion-sidebar') ||
-        document.querySelector('form [data-project-hovercards-enabled]');
+    let container = document.querySelector('#js-repo-pjax-container > div:nth-of-type(2)');
+    let reviewersBlockRightPos = Math.max(container.getBoundingClientRect()['x'] - 130, 0)
+    reviewersBlock.style.right = `${reviewersBlockRightPos}px`;
 
-    sidebar.prepend(reviewersBlock);
+    container.appendChild(reviewersBlock);
 };
 
 const addProcessStateEvaluation = function() {
