@@ -3,7 +3,7 @@
 // @namespace   SatelliteQE
 // @description Helps PR review process in SatelliteQE projects
 // @match       https://github.com/SatelliteQE/*
-// @version     1.15
+// @version     1.16
 // @run-at      document-end
 // ==/UserScript==
 
@@ -22,7 +22,7 @@ const reviewers = {
     },
     'robottelo': {
         'tier1': ['jameerpathan111', 'latran', 'lhellebr', 'mirekdlugosz', 'omkarkhatavkar', 'pgagne', 'pondrejk', 'vijay8451'],
-        'tier2': ['JacobCallahan', 'jyejare', 'ntkathole', 'rplevka']
+        'tier2': ['JacobCallahan', 'jyejare', 'ntkathole', 'rochacbruno', 'rplevka']
     },
     'robottelo-ci': {
         'tier1': ['latran'],
