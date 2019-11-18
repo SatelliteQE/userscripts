@@ -3,34 +3,34 @@
 // @namespace   SatelliteQE
 // @description Helps PR review process in SatelliteQE projects
 // @match       https://github.com/SatelliteQE/*
-// @version     1.17
+// @version     1.18
 // @run-at      document-end
 // ==/UserScript==
 
 const reviewers = {
     'airgun': {
-        'tier1': ['lhellebr', 'latran', 'omkarkhatavkar', 'vijay8451'],
-        'tier2': ['mirekdlugosz']
+        'tier1': ['eko999', 'jyejare', 'latran', 'vijay8451'],
+        'tier2': ['lhellebr', 'mirekdlugosz', 'omkarkhatavkar']
     },
     'automation-tools': {
-        'tier1': ['pgagne'],
-        'tier2': ['lpramuk', 'san7ket']
+        'tier1': ['JacobCallahan', 'pgagne', 'vijay8451'],
+        'tier2': ['jyejare', 'lpramuk', 'ntkathole', 'rplevka', 'san7ket']
     },
     'nailgun': {
-        'tier1': ['JacobCallahan', 'mirekdlugosz', 'omkarkhatavkar', 'rplevka', 'lhellebr'],
-        'tier2': ['jyejare', 'san7ket']
+        'tier1': ['lhellebr', 'mirekdlugosz', 'omkarkhatavkar', 'pgagne', 'rplevka'],
+        'tier2': ['JacobCallahan', 'jyejare', 'ntkathole', 'rochacbruno', 'san7ket']
     },
     'robottelo': {
-        'tier1': ['jameerpathan111', 'latran', 'lhellebr', 'mirekdlugosz', 'omkarkhatavkar', 'pgagne', 'pondrejk', 'vijay8451'],
-        'tier2': ['JacobCallahan', 'jyejare', 'ntkathole', 'rochacbruno', 'rplevka']
+        'tier1': ['eko999', 'latran', 'lhellebr', 'mirekdlugosz', 'omkarkhatavkar', 'pgagne', 'pondrejk', 'vijay8451'],
+        'tier2': ['JacobCallahan', 'jyejare', 'lpramuk', 'ntkathole', 'rochacbruno', 'rplevka', 'san7ket']
     },
     'robottelo-ci': {
-        'tier1': ['latran', 'ntkathole'],
-        'tier2': ['jyejare', 'san7ket']
+        'tier1': ['JacobCallahan', 'mirekdlugosz', 'rplevka'],
+        'tier2': ['jyejare', 'lpramuk', 'ntkathole', 'san7ket']
     },
     'satellite6-upgrade': {
-        'tier1': [],
-        'tier2': ['jyejare', 'ntkathole', 'san7ket']
+        'tier1': ['devendra104'],
+        'tier2': ['jyejare', 'ntkathole', 'rochacbruno', 'san7ket']
     },
     'testfm': {
         'tier1': ['jameerpathan111'],
