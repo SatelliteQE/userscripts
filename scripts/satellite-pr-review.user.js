@@ -3,13 +3,13 @@
 // @namespace   SatelliteQE
 // @description Helps PR review process in SatelliteQE projects
 // @match       https://github.com/SatelliteQE/*
-// @version     1.20
+// @version     1.21
 // @run-at      document-end
 // ==/UserScript==
 
 const reviewers = {
     'airgun': {
-        'tier1': ['eko999', 'jyejare', 'latran', 'vijay8451'],
+        'tier1': ['eko999', 'jyejare', 'latran', 'mshriver', 'vijay8451'],
         'tier2': ['lhellebr', 'mirekdlugosz', 'omkarkhatavkar']
     },
     'automation-tools': {
@@ -17,12 +17,12 @@ const reviewers = {
         'tier2': ['jyejare', 'lpramuk', 'rplevka']
     },
     'nailgun': {
-        'tier1': ['lhellebr', 'mirekdlugosz', 'omkarkhatavkar', 'rplevka'],
+        'tier1': ['lhellebr', 'mirekdlugosz', 'mshriver', 'omkarkhatavkar', 'rplevka'],
         'tier2': ['JacobCallahan', 'jyejare', 'rochacbruno']
     },
     'robottelo': {
-        'tier1': ['eko999', 'latran', 'lhellebr', 'mirekdlugosz', 'omkarkhatavkar', 'pondrejk', 'vijay8451'],
-        'tier2': ['JacobCallahan', 'jyejare', 'lpramuk', 'rochacbruno', 'rplevka']
+        'tier1': ['eko999', 'latran', 'lhellebr', 'mshriver', 'omkarkhatavkar', 'pondrejk', 'vijay8451'],
+        'tier2': ['JacobCallahan', 'jyejare', 'lpramuk', 'mirekdlugosz', 'rochacbruno', 'rplevka']
     },
     'robottelo-ci': {
         'tier1': ['JacobCallahan', 'mirekdlugosz', 'rplevka'],
