@@ -3,7 +3,7 @@
 // @namespace   SatelliteQE
 // @description Helps PR review process in SatelliteQE projects
 // @match       https://github.com/SatelliteQE/*
-// @version     1.22
+// @version     1.23
 // @run-at      document-end
 // ==/UserScript==
 
@@ -56,8 +56,8 @@ const isNewPRPage = function() {
 }
 
 const isPageLoading = function() {
-    let isLoaderWorking = document.querySelector('#js-pjax-loader-bar.is-loading') !== null;
-    let isProgressBarFull = document.querySelector('#js-pjax-loader-bar .progress').style.width === '100%';
+    let isLoaderWorking = document.querySelector('.js-pjax-loader-bar.is-loading') !== null;
+    let isProgressBarFull = document.querySelector('.js-pjax-loader-bar .progress-pjax-loader-bar').style.width === '100%';
 
     return isLoaderWorking || ( ! isProgressBarFull );
 };
@@ -85,13 +85,16 @@ const minimumNumberOfReviewers = function(reviewState) {
     let checkResult = {'passed': undefined, 'message': undefined};
     const reviewNumberThreshold = 2;
 
-    let passedReviews = reviewState.filter(review => review.accepted);
+    const projectReviewers = Object.values(reviewers[getProjectFromURL()]).flat();
+
+    let passedReviews = reviewState.filter(review => review.accepted)
+        .filter(review => projectReviewers.includes(review.user));
 
     if (passedReviews.length >= reviewNumberThreshold) {
         checkResult.passed = true;
     } else {
         checkResult.passed = false;
-        checkResult.message = `Too few ACKs - ${passedReviews.length} given, ${reviewNumberThreshold} needed`;
+        checkResult.message = `Too few ACKs from reviewers - ${passedReviews.length} given, ${reviewNumberThreshold} needed`;
     }
 
     return checkResult;
