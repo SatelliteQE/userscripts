@@ -3,7 +3,7 @@
 // @namespace   SatelliteQE
 // @description Adds links to Bugzilla search queries with your components
 // @match       https://mojo.redhat.com/docs/DOC-1191673
-// @version     1.2
+// @version     1.3
 // @run-at      document-end
 // ==/UserScript==
 
@@ -30,7 +30,7 @@ const categories = [
 
 const columns = ['component', 'assigned_to', 'qa_contact', 'bug_status', 'resolution', 'short_desc', 'changeddate'];
 
-const urlbase = `https://bugzilla.redhat.com/buglist.cgi?query_format=advanced&columnlist=${columns.join(',')}&product=Red Hat Satellite 6`;
+const urlbase = `https://bugzilla.redhat.com/buglist.cgi?query_format=advanced&columnlist=${columns.join(',')}&product=Red Hat Satellite`;
 
 const getUserName = function() {
     let avatar = document.querySelector('#j-links img.jive-avatar');
@@ -44,8 +44,8 @@ const getComponentsForUser = function(username) {
         let tds = tr.getElementsByTagName('td');
         return {
             'component': tds[0].textContent,
-            'primary': tds[1].textContent,
-            'secondary': tds[2].textContent,
+            'primary': tds[2].textContent,
+            'secondary': tds[3].textContent,
         };
     });
 
